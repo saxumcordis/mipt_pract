@@ -1,0 +1,8 @@
+.modal {
+  background-color: pink;
+  width: 150px;
+  height: 150px;
+
+  display: none;
+
+}
