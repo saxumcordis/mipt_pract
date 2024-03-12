@@ -11,7 +11,7 @@ const DEFAULT_IMAGES = [
     "width": 500,
     "height": 500
   },
-  {
+  /*{
     "id": "18d",
     "url": "https://cdn2.thecatapi.com/images/18d.gif",
     "width": 372,
@@ -57,9 +57,30 @@ const DEFAULT_IMAGES = [
     "id": "jyjEWK7xp",
     "url": "https://cdn2.thecatapi.com/images/jyjEWK7xp.jpg",
     "width": 3144,
-    "height": 2448
-  }
+    "height": 2448 */
+
 ]
+
+const handleDeleteImg = (img) => {
+  const ul = document.querySelector('.list');
+
+  ul.removeChild(img);
+}
+
+
+const handleCopyImg = (img) => {
+  const ul = document.querySelector('.list');
+  const newElem = document.createElement('li');
+  newElem.innerHTML = img.innerHTML
+  newElem.className = img.className;
+
+
+  newElem.querySelector('.delete-button').onclick = () => handleDeleteImg(newElem);
+  newElem.querySelector('.copy-button').onclick = () => handleCopyImg(newElem);
+
+
+  ul.append(newElem);
+}
 
 const createImgToUl = (url) => {
   const li = document.createElement('li');
@@ -68,7 +89,22 @@ const createImgToUl = (url) => {
   img.setAttribute('src', url)
   img.className = 'list__item_image';
 
-  li.className = 'list__item'
+  li.className = 'list__item';
+  li.append(img);
+
+  const deleteButton = document.createElement('button');
+  deleteButton.className = 'delete-button';
+  deleteButton.innerText = 'x';
+  deleteButton.onclick = () => handleDeleteImg(li);
+
+  li.append(deleteButton);
+
+  const copyButton = document.createElement('button');
+  copyButton.className = 'copy-button';
+  copyButton.innerText = 'copy';
+  copyButton.onclick = () => handleCopyImg(li);
+
+  li.append(copyButton);
 
   return li;
 }
@@ -78,39 +114,23 @@ function initImages() {
   const ul = document.createElement('ul');
   ul.className = 'list';
 
-  DEFAULT_IMAGES.forEach(image => {
-    const li = document.createElement('li');
-    const img = document.createElement('img');
-
-    img.setAttribute('src', image.url)
-    img.className = 'list__item_image';
-
-    li.className = 'list__item'
-    li.append(img);
-
-    ul.append(li)
+  DEFAULT_IMAGES.forEach((image, index) => {
+    ul.append(createImgToUl(image.url, index))
   })
 
   gallery.append(ul);
 }
 
 function initCreateButton() {
-  const button = document.querySelector('.create-elem');
-  const ul = document.querySelector('.list');
-
+  const button = document.querySelector('.create-elem')
+  const ul = document.querySelector('.list')
 
   button.onclick = () => {
-    const li = document.createElement('li');
-    const img = document.createElement('img');
-
-    img.setAttribute('src', 'https://cdn2.thecatapi.com/images/tZYP8bcem.jpg')
-    img.className = 'list__item_image';
-
-    li.className = 'list__item'
-    li.append(img);
-    ul.append(li)
+    ul.append(createImgToUl('https://cdn2.thecatapi.com/images/tZYP8bcem.jpg'))
   }
+
 }
+
 
 initImages();
 initCreateButton();
