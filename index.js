@@ -1,137 +1,95 @@
-const DEFAULT_IMAGES = [
-  {
-    "id": "kt",
-    "url": "https://cdn2.thecatapi.com/images/kt.jpg",
-    "width": 1600,
-    "height": 1067
-  },
-  {
-    "id": "m2",
-    "url": "https://cdn2.thecatapi.com/images/m2.jpg",
-    "width": 500,
-    "height": 500
-  },
-  /*{
-    "id": "18d",
-    "url": "https://cdn2.thecatapi.com/images/18d.gif",
-    "width": 372,
-    "height": 242
-  },
-  {
-    "id": "6tk",
-    "url": "https://cdn2.thecatapi.com/images/6tk.jpg",
-    "width": 640,
-    "height": 426
-  },
-  {
-    "id": "bdu",
-    "url": "https://cdn2.thecatapi.com/images/bdu.jpg",
-    "width": 500,
-    "height": 328
-  },
-  {
-    "id": "bjh",
-    "url": "https://cdn2.thecatapi.com/images/bjh.jpg",
-    "width": 640,
-    "height": 360
-  },
-  {
-    "id": "cqj",
-    "url": "https://cdn2.thecatapi.com/images/cqj.jpg",
-    "width": 3870,
-    "height": 3104
-  },
-  {
-    "id": "MjAwMzg3Ng",
-    "url": "https://cdn2.thecatapi.com/images/MjAwMzg3Ng.jpg",
-    "width": 1000,
-    "height": 664
-  },
-  {
-    "id": "tZYP8bcem",
-    "url": "https://cdn2.thecatapi.com/images/tZYP8bcem.jpg",
-    "width": 1200,
-    "height": 900
-  },
-  {
-    "id": "jyjEWK7xp",
-    "url": "https://cdn2.thecatapi.com/images/jyjEWK7xp.jpg",
-    "width": 3144,
-    "height": 2448 */
+const form = document.querySelector('form') // document.querySelector('#register');
+const button = document.querySelector('button');
+const password = document.querySelector('#password');
+const repeatPassword = document.querySelector('#repeatPassword');
+const email = document.querySelector('#email');
+const nameField = document.querySelector('#name');
+const age = document.querySelector('#age');
 
-]
+/** Так можно сделать, если мы хотим описать валидацию в одном месте и дальше её переиспользовать */
+const elementValidation = {
+  'password': (passwordElement) => {
+    return passwordElement.value.legnth > 2;
+  },
+  'age': (ageElement) => ageElement.value > 18,
+}
 
-const handleDeleteImg = (img) => {
-  const ul = document.querySelector('.list');
+const clearError = (element) => {
+  const errorSpan = document.querySelector(`#error_${element.id}`);
+  errorSpan.classList.remove('error-message-visible');
+}
 
-  ul.removeChild(img);
+const showError = (element, customErrorMessage) => {
+  /**  можно так: const span = document.createElement('span');
+     span.innerText = element.validationMessage;
+     element.after(span)
+
+     */
+
+  const errorSpan = document.querySelector(`#error_${element.id}`);
+  errorSpan.innerText = customErrorMessage || element.validationMessage;
+  errorSpan.classList.add('error-message-visible');
 }
 
 
-const handleCopyImg = (img) => {
-  const ul = document.querySelector('.list');
-  const newElem = document.createElement('li');
-  newElem.innerHTML = img.innerHTML
-  newElem.className = img.className;
-
-
-  newElem.querySelector('.delete-button').onclick = () => handleDeleteImg(newElem);
-  newElem.querySelector('.copy-button').onclick = () => handleCopyImg(newElem);
-
-
-  ul.append(newElem);
+const isPasswordRepeated = () => {
+  const password = document.querySelector('#password');
+  const repeatPassword = document.querySelector('#repeatPassword');
+  console.log(password.value, repeatPassword.value)
+  return password.value === repeatPassword.value;
 }
 
-const createImgToUl = (url) => {
-  const li = document.createElement('li');
-  const img = document.createElement('img');
+const handlePasswordValidate = () => {
+  clearError(password);
+  clearError(repeatPassword);
 
-  img.setAttribute('src', url)
-  img.className = 'list__item_image';
+  if (!isPasswordRepeated()) {
+    showError(password, 'please repeat your password');
+    showError(repeatPassword, 'please repeat your password');
 
-  li.className = 'list__item';
-  li.append(img);
-
-  const deleteButton = document.createElement('button');
-  deleteButton.className = 'delete-button';
-  deleteButton.innerText = 'x';
-  deleteButton.onclick = () => handleDeleteImg(li);
-
-  li.append(deleteButton);
-
-  const copyButton = document.createElement('button');
-  copyButton.className = 'copy-button';
-  copyButton.innerText = 'copy';
-  copyButton.onclick = () => handleCopyImg(li);
-
-  li.append(copyButton);
-
-  return li;
-}
-
-function initImages() {
-  const gallery = document.querySelector('.gallery');
-  const ul = document.createElement('ul');
-  ul.className = 'list';
-
-  DEFAULT_IMAGES.forEach((image, index) => {
-    ul.append(createImgToUl(image.url, index))
-  })
-
-  gallery.append(ul);
-}
-
-function initCreateButton() {
-  const button = document.querySelector('.create-elem')
-  const ul = document.querySelector('.list')
-
-  button.onclick = () => {
-    ul.append(createImgToUl('https://cdn2.thecatapi.com/images/tZYP8bcem.jpg'))
+    return false;
   }
 
+  return true;
 }
 
+const handleValidate = (element) => {
+  clearError(element);
+  if (!element.checkValidity() /** если хотим добавить посложнее валидацию && elementValidation[element.id](element) */) {
+    showError(element);
 
-initImages();
-initCreateButton();
+    return false;
+  } else if ((element.id === password.id || element.id === repeatPassword.id)) {
+    return handlePasswordValidate();
+  }
 
+  return true;
+}
+
+button.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  const elements = Array.from(form.elements);
+
+  let isFormValid = true;
+
+  elements.forEach(elem => {
+    if (elem.id !== button.id) {
+      const isElementValid = handleValidate(elem);
+
+      isFormValid = isFormValid && isElementValid;
+    }
+  })
+
+  if (isFormValid) {
+    document.querySelector('#success-form').classList.add('success-message-visible')
+  } else {
+    document.querySelector('#success-form').classList.remove('success-message-visible')
+  }
+})
+
+email.addEventListener('input', (event) => handleValidate(event.target));
+password.addEventListener('input', (event) => handleValidate(event.target));
+repeatPassword.addEventListener('input', (event) => handleValidate(event.target));
+nameField.addEventListener('input', (event) => handleValidate(event.target));
+age.addEventListener('input', (event) => handleValidate(event.target));
