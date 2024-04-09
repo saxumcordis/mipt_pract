@@ -8,27 +8,34 @@
 </head>
 
 <body>
+  <template id="todolist-form-template" style="display: none;">
+    <form>
+      <input type="text" class="todolist-form_input" />
+      <button type="submit" class="todolist-form_submit">Сохранить</button>
+    </form>
+  </template>
+
+  <template id="todolist-template" style="display: none;">
+    <ul>
+
+    </ul>
+  </template>
+
+  <template id="todolist-item-template" style="display: none;">
+    <li>
+      <span class="todolist-item__title">
+
+      </span>
+      <div class="todolist-item__controls">
+        <button class="todolist-item__controls-copy">copy</button>
+        <button class="todolist-item__controls-delete">delete</button>
+      </div>
+    </li>
+  </template>
   <section>
     <h1>todo list</h1>
 
-    <div id="content" class="content">
-      <form class="todolist-form-template">
-        <input type="text" class="todolist-form_input" />
-        <button type="submit" class="todolist-form_submit">Сохранить</button>
-      </form>
-
-      <ul class="todolist-template">
-        <li class="todolist-template__item">
-          <span class="todolist-template__item-title">
-
-          </span>
-          <div class="todolist-template__item-controls">
-            <button class="todolist-template__item-controls-copy">copy</button>
-            <button class="todolist-template__item-controls-delete">delete</button>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <div id="content" class="content" />
   </section>
 </body>
 
