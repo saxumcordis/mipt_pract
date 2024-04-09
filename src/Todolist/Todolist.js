@@ -1,13 +1,13 @@
 import { TodolistItem } from './TodolistItem';
 
 export class Todolist {
-  static template = document.querySelector('.todolist-template');
+  static _template = document.querySelector('.todolist-template');
 
   constructor(items, parent) {
     this.parent = parent;
     this.items = items;
 
-    this.view = Todolist.template.cloneNode();
+    this.view = Todolist._template.cloneNode();
   }
 
   addItem = (text) => {
