@@ -1,137 +1,131 @@
-const DEFAULT_IMAGES = [
-  {
-    "id": "kt",
-    "url": "https://cdn2.thecatapi.com/images/kt.jpg",
-    "width": 1600,
-    "height": 1067
-  },
-  {
-    "id": "m2",
-    "url": "https://cdn2.thecatapi.com/images/m2.jpg",
-    "width": 500,
-    "height": 500
-  },
-  /*{
-    "id": "18d",
-    "url": "https://cdn2.thecatapi.com/images/18d.gif",
-    "width": 372,
-    "height": 242
-  },
-  {
-    "id": "6tk",
-    "url": "https://cdn2.thecatapi.com/images/6tk.jpg",
-    "width": 640,
-    "height": 426
-  },
-  {
-    "id": "bdu",
-    "url": "https://cdn2.thecatapi.com/images/bdu.jpg",
-    "width": 500,
-    "height": 328
-  },
-  {
-    "id": "bjh",
-    "url": "https://cdn2.thecatapi.com/images/bjh.jpg",
-    "width": 640,
-    "height": 360
-  },
-  {
-    "id": "cqj",
-    "url": "https://cdn2.thecatapi.com/images/cqj.jpg",
-    "width": 3870,
-    "height": 3104
-  },
-  {
-    "id": "MjAwMzg3Ng",
-    "url": "https://cdn2.thecatapi.com/images/MjAwMzg3Ng.jpg",
-    "width": 1000,
-    "height": 664
-  },
-  {
-    "id": "tZYP8bcem",
-    "url": "https://cdn2.thecatapi.com/images/tZYP8bcem.jpg",
-    "width": 1200,
-    "height": 900
-  },
-  {
-    "id": "jyjEWK7xp",
-    "url": "https://cdn2.thecatapi.com/images/jyjEWK7xp.jpg",
-    "width": 3144,
-    "height": 2448 */
+import { Todolist } from './src/Todolist/Todolist';
 
-]
 
-const handleDeleteImg = (img) => {
-  const ul = document.querySelector('.list');
+function putNoice() {
+  console.log(this.name + 'says ' + this.sound)
+}
 
-  ul.removeChild(img);
+class Animal {
+  constructor(name, sound) {
+    this.name = name;
+    this.sound = sound;
+  }
+}
+
+/*const cat = {
+  name: 'bob',
+  sound: 'meow',
+  putNoice,
+}
+
+const dob = {
+  name: 'bobby',
+  sound: 'aww',
+  putNoice,
 }
 
 
-const handleCopyImg = (img) => {
-  const ul = document.querySelector('.list');
-  const newElem = document.createElement('li');
-  newElem.innerHTML = img.innerHTML
-  newElem.className = img.className;
+const eliphant = {
+  name: 'nash slon',
+  sound: 'wwwwww',
+  putNoice,
+} */
 
+/* const cat = new Animal('bob', 'meow')
+const dog = new Animal('bobby', 'aww');
+const eliphant = new Animal('nash slon', 'wwww');
 
-  newElem.querySelector('.delete-button').onclick = () => handleDeleteImg(newElem);
-  newElem.querySelector('.copy-button').onclick = () => handleCopyImg(newElem);
+console.log(cat, dog, eliphant) */
 
+class Vehicle {
+  // #vin; - private field
+  _vin;
 
-  ul.append(newElem);
-}
-
-const createImgToUl = (url) => {
-  const li = document.createElement('li');
-  const img = document.createElement('img');
-
-  img.setAttribute('src', url)
-  img.className = 'list__item_image';
-
-  li.className = 'list__item';
-  li.append(img);
-
-  const deleteButton = document.createElement('button');
-  deleteButton.className = 'delete-button';
-  deleteButton.innerText = 'x';
-  deleteButton.onclick = () => handleDeleteImg(li);
-
-  li.append(deleteButton);
-
-  const copyButton = document.createElement('button');
-  copyButton.className = 'copy-button';
-  copyButton.innerText = 'copy';
-  copyButton.onclick = () => handleCopyImg(li);
-
-  li.append(copyButton);
-
-  return li;
-}
-
-function initImages() {
-  const gallery = document.querySelector('.gallery');
-  const ul = document.createElement('ul');
-  ul.className = 'list';
-
-  DEFAULT_IMAGES.forEach((image, index) => {
-    ul.append(createImgToUl(image.url, index))
-  })
-
-  gallery.append(ul);
-}
-
-function initCreateButton() {
-  const button = document.querySelector('.create-elem')
-  const ul = document.querySelector('.list')
-
-  button.onclick = () => {
-    ul.append(createImgToUl('https://cdn2.thecatapi.com/images/tZYP8bcem.jpg'))
+  constructor(maxSpeed, maxFuel, consumption, maxDistance) {
+    this.maxSpeed = maxSpeed;
+    this.maxFuel = maxFuel;
+    this.consumption = consumption;
+    this.maxDistance = maxDistance;
+    this._vin = '1234';
   }
 
+
+  #calculateRange() {
+    return 10;
+  }
+
+  _calculateRange() {
+    return 10;
+  }
+
+  getAvailableRange() {
+    this.#calculateRange();
+  }
+
+  getInfo() {
+    return {
+      maxSpeed: this.maxSpeed,
+      maxFuel: this.maxFuel,
+      consumption: this.consumption,
+      maxDistance: this.maxDistance
+    }
+  }
 }
 
+class Car extends Vehicle {
+  constructor(...args) {
+    super(...args);
 
-initImages();
-initCreateButton();
+    this.wheelsCount = 4;
+  }
+
+  beepBoop() {
+    console.log('beep boop')
+  }
+}
+
+class Plane extends Vehicle {
+  constructor(maxHeight, ...args) {
+    super(...args);
+
+    this.wheelsCount = 6;
+    this.maxHeight = maxHeight;
+  }
+
+
+  getInfo() {
+    const baseInfo = super.getInfo();
+    this._vin; // НЕ РЕКОМЕНДУЕТСЯ, т.к приватное (непонятно его поведение, лучше использовать публичный интерфейс)
+    this._calculateRange; // НЕ РЕКОМЕНДУЕТСЯ, т.к приватное
+
+
+    return {
+      /* maxSpeed: this.maxSpeed,
+      maxFuel: this.maxFuel,
+      consumption: this.consumption,
+      maxDistance: this.maxDistance, */
+      ...baseInfo,
+      maxHeight: this.maxHeight,
+    }
+  }
+}
+
+/**   ======================================  */
+
+const todoListItems = [
+  'Сделать 1 задание',
+  'Сделать 2 задание',
+  'Сделать 3 задание',
+  'Сходить в магазин',
+  'Сделать лабку',
+]
+const contentContainer = document.querySelector('.content');
+const todoListView = new Todolist(todoListItems, contentContainer);
+
+todoListView.render();
+
+
+
+
+
 

@@ -1,27 +1,3 @@
-.gallery {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-}
-
-.list {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.list__item {
-  width: 200px;
-  border: 1px solid black;
-
-  height: 300px;
-}
-
-.list__item_image {
-  width: 150px;
-}
-
-.create-elem {
-  width: 100vw;
+.todolist-template:first-of-type {
+  display: none;
 }
