@@ -1,0 +1,57 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.list-item {
+  border: 1px solid black;
+
+  width: 281px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+}
+
+.list-item img {
+  width: 281px;
+  height: 188px;
+}
+
+.list-item__title {
+  font-weight: 600;
+}
+
+.search-controls {
+  display: flex;
+  align-items: center;
+  width: 800px;
+  padding: 0 32px;
+  gap: 4px
+}
+
+.search-input {
+  height: 40px;
+  flex-grow: 1;
+}
+
+.search-button {
+  height: 40px;
+  background-color: black;
+}
+
+.button-share {
+  background-color: pink;
+}
