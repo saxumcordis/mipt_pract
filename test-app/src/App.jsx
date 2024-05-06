@@ -1,13 +1,12 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import { ListItem } from './components/ListItem/ListItem'
+import { useState } from 'react';
+import { CatItem } from './components/CatItem/CatItem'
 import { Button } from './components/Button/Button'
 import { initListItems } from './utils/initListItems'
 
 function App() {
-  const [state, setState] = useState([] /** inital value */);
-  /*  const [counter, setCounter] = useState(0);
-   const [inputValue, setInputValue] = useState(''); */
+  const [state, setState] = useState([]);
+
 
   const fetchCats = () => {
     initListItems().then(e => {
@@ -16,11 +15,6 @@ function App() {
   }
 
   const onDeleteCat = (url) => {
-    /** не рекомендуется, т.к не всегда актуальное состояние state */
-    /* const newState = state.filter(cat => cat.url !== url);
-
-    setState(newState); */
-
     setState(currentState => currentState.filter((cat) => cat.url !== url))
   }
 
@@ -34,27 +28,17 @@ function App() {
     }))
   }
 
-  useEffect(() => {
-    fetchCats();
-  }, []);
-
   const catsArray = state.map(
-    (cat, index) => <ListItem key={index} cat={cat} index={index} onDelete={onDeleteCat} onLike={onLikeCat} />
+    (cat, index) => <CatItem key={index} cat={cat} onDelete={onDeleteCat} onLike={onLikeCat} />
   )
 
   return (
     <div className="App">
       <Button type="share" onClick={() => console.log('SHARE ALL')} />
       <div className="search-controls">
-        <input className="search-input" />
         <Button className='search-button' onClick={fetchCats}>search</Button>
       </div>
       <div className="list">
-        {/* <ListItem title="title1" place="place2" />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-  <ListItem /> */}
         {catsArray}
       </div>
     </div>

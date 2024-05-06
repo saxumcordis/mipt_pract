@@ -1,15 +1,15 @@
 import { Button } from '../Button/Button'
 
-export const ListItem = ({ cat, onDelete, index, onLike }) => {
+export const CatItem = ({ cat, onDelete, onLike }) => {
 
   const { url, like } = cat;
 
-  return <div className="list-item">
+  return <div className="cat-item">
     <img src={url} alt="" />
-    <span className="list-item__title">
-      {'title' + index}
+    <span className="cat-item__title">
+      {cat.breeds[0].name}
     </span>
-    <span className="list-item__likes">
+    <span className="cat-item__likes">
       {'Likes: ' + like}
     </span>
     <Button className='like-button' onClick={() => onLike(url)}>like</Button>
