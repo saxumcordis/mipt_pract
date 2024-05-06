@@ -34,9 +34,8 @@ function App() {
 
   return (
     <div className="App">
-      <Button type="share" onClick={() => console.log('SHARE ALL')} />
       <div className="search-controls">
-        <Button className='search-button' onClick={fetchCats}>search</Button>
+        <Button className='search-button' onClick={fetchCats}>add</Button>
       </div>
       <div className="list">
         {catsArray}

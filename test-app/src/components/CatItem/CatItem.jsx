@@ -6,12 +6,13 @@ export const CatItem = ({ cat, onDelete, onLike }) => {
 
   return <div className="cat-item">
     <img src={url} alt="" />
-    <span className="cat-item__title">
+    <div className="cat-item__controls"><span className="cat-item__title">
       {cat.breeds[0].name}
     </span>
-    <span className="cat-item__likes">
-      {'Likes: ' + like}
-    </span>
+      <span className="cat-item__likes">
+        {'❤️ ' + like}
+      </span>
+    </div>
     <Button className='like-button' onClick={() => onLike(url)}>like</Button>
     <Button type="share" onClick={() => console.log(`SHARE ITEM ${url}`)} />
 
