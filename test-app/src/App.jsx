@@ -1,8 +1,9 @@
 import './App.css';
 import { useState } from 'react';
-import { CatItem } from './components/CatItem/CatItem'
 import { Button } from './components/Button/Button'
 import { initListItems } from './utils/initListItems'
+import { List } from './components/List/List';
+import { Tooltip } from './components/Tooltip/Tooltip';
 
 function App() {
   const [state, setState] = useState([]);
@@ -14,33 +15,36 @@ function App() {
     });
   }
 
-  const onDeleteCat = (url) => {
-    setState(currentState => currentState.filter((cat) => cat.url !== url))
-  }
-
-  const onLikeCat = (url) => {
-    setState(currentState => currentState.map((cat) => {
-      if (cat.url === url) {
-        return { ...cat, like: cat.like + 1 }
-      }
-
-      return cat;
-    }))
-  }
-
-  const catsArray = state.map(
-    (cat, index) => <CatItem key={index} cat={cat} onDelete={onDeleteCat} onLike={onLikeCat} />
-  )
 
   return (
     <div className="App">
       <div className="search-controls">
         <Button className='search-button' onClick={fetchCats}>add</Button>
       </div>
-      <div className="list">
-        {catsArray}
-      </div>
-    </div>
+      <List items={state} />
+
+
+      {/** PROPS EXAMPLES */}
+      <Button className={true ? 'some_true_class' : 'some_false_class'}
+        prop2={true && 'some_true_class'}
+        prop3={console.log}
+        prop4={console.log('lol')}
+      /* renderedItems={renderItems()} */
+      >
+        {/**
+         * DO NOT DO THIS
+         * <p>{this.props.data.items[0].info.description.text}</>
+         * DO THIS!
+         * <Item item={item}>
+         *  <Info info={item.info}>
+         *  <Description>{text}</Description>
+         *  </Info>
+         * </Item>
+         */}
+        {true ? 'true' : 'false'}
+      </Button>
+      <Tooltip text="text" link="href" />
+    </div >
   );
 }
 
