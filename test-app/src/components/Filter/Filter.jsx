@@ -6,10 +6,10 @@ export class Filter extends React.Component {
     const { items, filterKey, onFilter } = this.props;
 
     return <ul>
-      {items.map(item => {
+      {items.map((item, index) => {
         const name = item.breeds[0].name;
 
-        return <li onClick={() => onFilter(name)}>
+        return <li key={`${index}_${item}`} onClick={() => onFilter(name)}>
           {name}
           {filterKey === name ? 'CHECKED' : ''}
         </li>

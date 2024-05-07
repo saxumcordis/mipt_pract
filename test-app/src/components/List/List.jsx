@@ -33,7 +33,7 @@ export class List extends React.Component {
     document.removeEventListener(...)
   } */
 
-  shouldComponentUpdate(nextProps) {
+  /* shouldComponentUpdate(nextProps) {
     const { items } = this.props;
 
     if (items.length !== nextProps.items.length) {
@@ -41,33 +41,30 @@ export class List extends React.Component {
     }
 
     return false;
-  }
+  } */
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     /* FORBIDDEN
      this.state = {
       items: this.props.items
     } */
 
-    this.setState({
-      items: this.props.items,
-    })
 
-    /** IF MOVED TO shouldComponentUpdate  */
-    /* if (prevProps.items.length !== this.props.items.length) { /** на текущий момент этого if достаточно, чтобы избежать max rerender */
-    /** React will setState only once with last call */
-    /* this.setState({
-        items: this.props.items,
-      })
+
+    if (prevProps.items.length !== this.props.items.length) { /** на текущий момент этого if достаточно, чтобы избежать max rerender */
+      /** React will setState only once with last call */
+      /* this.setState({
+          items: this.props.items,
+        })
+
+        this.setState({
+          items: [],
+        }) */
 
       this.setState({
-        items: [],
-      }) */
-
-    /* this.setState({
-       items: this.props.items,
-     })
-   } */
+        items: this.props.items,
+      })
+    }
 
   }
 
