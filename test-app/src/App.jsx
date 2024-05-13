@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Button } from './components/Button/Button'
 import { initListItems } from './utils/initListItems'
 import { List } from './components/List/List';
-import { Tooltip } from './components/Tooltip/Tooltip';
 
 function App() {
   const [state, setState] = useState([]);
@@ -24,26 +23,27 @@ function App() {
       <List items={state} />
 
 
-      {/** PROPS EXAMPLES */}
+      {/** PROPS EXAMPLES
       <Button className={true ? 'some_true_class' : 'some_false_class'}
         prop2={true && 'some_true_class'}
         prop3={console.log}
         prop4={console.log('lol')}
-      /* renderedItems={renderItems()} */
+      /* renderedItems={renderItems()}
       >
-        {/**
-         * DO NOT DO THIS
-         * <p>{this.props.data.items[0].info.description.text}</>
-         * DO THIS!
-         * <Item item={item}>
-         *  <Info info={item.info}>
-         *  <Description>{text}</Description>
-         *  </Info>
-         * </Item>
-         */}
-        {true ? 'true' : 'false'}
-      </Button>
-      <Tooltip text="text" link="href" />
+/**
+ * DO NOT DO THIS
+ * <p>{this.props.data.items[0].info.description.text}</>
+ * DO THIS!
+ * <Item item={item}>
+ *  <Info info={item.info}>
+ *  <Description>{text}</Description>
+ *  </Info>
+ * </Item>
+
+{true ? 'true' : 'false'}
+</Button>
+<Tooltip text="text" link="href" />
+  */}
     </div >
   );
 }
