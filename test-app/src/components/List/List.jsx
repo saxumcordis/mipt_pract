@@ -1,6 +1,7 @@
 import React from 'react';
 import { CatItem } from '../CatItem/CatItem'
 import { Filter } from '../Filter/Filter'
+import { SortBlock } from '../SortBlock/SortBlock'
 
 
 /** functional  component */
@@ -18,6 +19,8 @@ export class List extends React.Component {
       items: props.items,
       likedItems: {},
       filterKey: undefined,
+      sortDirection: undefined,
+      sortType: undefined,
     }
   }
 
@@ -92,7 +95,7 @@ export class List extends React.Component {
   }
 
   renderItems() {
-    const { items, likedItems, filterKey } = this.state;
+    const { items, likedItems, filterKey, sortDirection, sortType } = this.state;
 
     let filteredItems = items;
 
@@ -100,8 +103,34 @@ export class List extends React.Component {
       filteredItems = items.filter(item => item.breeds[0].name === filterKey);
     }
 
+    if (sortDirection && sortType) {
+      filteredItems = filteredItems.sort((item1, item2) => {
+        if (sortType === 'alphabet') {
+          const name1 = item1.breeds[0].name;
+          const name2 = item2.breeds[0].name;
+
+          if (name1 > name2) {
+            return sortDirection === 'ASC' ? 1 : -1;
+          } else if (name2 > name1) {
+            return sortDirection === 'ASC' ? -1 : 1;
+          }
+
+          return 0;
+        }
+
+        const liked1 = likedItems[item1.url];
+        const liked2 = likedItems[item2.url];
+
+        if (liked1) return sortDirection === 'ASC' ? -1 : 1;
+        if (liked2) return sortDirection === 'ASC' ? 1 : -1;
+
+        return 0;
+      })
+    }
+
+
     const catsArray = filteredItems.map(
-      (cat, index) => <CatItem key={index} cat={cat} isLiked={likedItems[cat.url]} onDelete={console.log} onLike={this.onLikeCat} />
+      (cat, index) => <CatItem key={index} {...cat} isLiked={likedItems[cat.url]} onDelete={console.log} onLike={this.onLikeCat} />
     )
 
     return catsArray;
@@ -113,12 +142,32 @@ export class List extends React.Component {
     })
   }
 
+  onSortTypeChange = (value) => {
+    this.setState({
+      sortType: value
+    })
+  }
+
+  onDirectionChange = (value) => {
+    this.setState({
+      sortDirection: value
+    })
+  }
+
   render() {
     const { items, filterKey } = this.state;
 
+    /** correct using */
+    const uniqueBreedNames = items.map(item => item.breeds[0].name).filter((item, index, arr) => index === arr.lastIndexOf(item));
+
     return (<div className="list">
-      <Filter items={items} onFilter={this.onFilter} filterKey={filterKey} />
-      <div className="list-items">{this.renderItems()}</div>
+      <Filter items={uniqueBreedNames} onFilter={this.onFilter} filterKey={filterKey} />
+      <div>
+        <SortBlock onSortTypeChange={this.onSortTypeChange} onDirectionChange={this.onDirectionChange} />
+        <div className="list-items">
+          {this.renderItems()}
+        </div>
+      </div>
     </div>)
   }
 }

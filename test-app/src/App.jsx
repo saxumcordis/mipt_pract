@@ -1,26 +1,19 @@
 import './App.css';
-import { useState } from 'react';
 import { Button } from './components/Button/Button'
-import { initListItems } from './utils/initListItems'
+
 import { List } from './components/List/List';
+import { useInitListItems } from './utils/useInitListItems';
 
 function App() {
-  const [state, setState] = useState([]);
 
-
-  const fetchCats = () => {
-    initListItems().then(e => {
-      setState(prev => [...prev, ...e.map(e => ({ ...e, like: 0 }))]);
-    });
-  }
-
+  const { items, isLoading, onFetchItem } = useInitListItems();
 
   return (
     <div className="App">
       <div className="search-controls">
-        <Button className='search-button' onClick={fetchCats}>add</Button>
+        <Button className={`search-button ${isLoading ? 'search-button-disabled' : ''}`} disabled={isLoading} onClick={onFetchItem}>{isLoading ? 'loading...' : 'add'}</Button>
       </div>
-      <List items={state} />
+      <List items={items} />
 
 
       {/** PROPS EXAMPLES

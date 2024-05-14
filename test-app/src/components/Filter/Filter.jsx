@@ -1,16 +1,23 @@
 import React from 'react';
+import { Button } from '../Button/Button';
 
 export class Filter extends React.Component {
   render() {
 
     const { items, filterKey, onFilter } = this.props;
 
-    return <ul className="filter">
-      {items.map((item, index) => {
-        const name = item.breeds[0].name;
+    if (items.length === 0) {
+      return null;
+    }
 
-        return <li key={`${index}_${item}`} className={`filter__item ${filterKey === name ? 'filter__item-active' : ''}`} onClick={() => onFilter(name)}>
-          {name}
+    /** incorrect using, filter shouldnt know about other logic */
+    /** const uniqueItems = items.filter((item, index) => index === items.lastIndexOf(item)); */
+
+    return <ul className="filter">
+      <Button onClick={() => onFilter(undefined)}>reset</Button>
+      {items.map((item, index) => {
+        return <li key={`${index}_${item}`} className={`filter__item ${filterKey === item ? 'filter__item-active' : ''}`} onClick={() => onFilter(item)}>
+          {item}
         </li>
       })}
     </ul>

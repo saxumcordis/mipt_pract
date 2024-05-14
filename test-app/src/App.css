@@ -68,6 +68,10 @@
   font-weight: 600;
 }
 
+.search-button-disabled {
+  background-color: aqua;
+}
+
 .button-share {
   background-color: rgba(87, 157, 194, 0.808);
 }
@@ -109,4 +113,13 @@
 
 .filter__item-active {
   font-weight: 600;
+}
+
+.sortblock {
+  display: flex;
+  gap: 4px;
+}
+
+.sort__button-active {
+  background-color: aqua;
 }
