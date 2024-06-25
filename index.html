@@ -5,13 +5,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="index.css">
-  <script defer src="index.js"></script>
-
 </head>
 
 <body>
 
+  <div class="logo">
+    <img src="https://avatars.mds.yandex.net/get-lpc/10116223/099a1ee1-39ec-40c8-97ed-f7b8548cf5f0/orig" alt="Logo" />
+    <span class="title">| Forms Validation</span>
+  </div>
+  <div class="form-container">
+    <form id="register" name="register" class="form">
+      <div class="form__field">
+        <label>Name</label>
+        <input id="name" pattern="\d{3,3}-\d{3,3}-\d{2,2}" required class="input input-default" placeholder="Name" />
+        <span id="error_name" class="error-message"></span>
+      </div>
+      <div class="form__field">
+        <label>Age</label>
+        <input id="age" required class="input input-default" placeholder="age" />
+        <span id="error_age" class="error-message"></span>
+      </div>
+      <div class="form__field">
+        <label>Email</label>
+        <input id="email" required type="email" class="input input-default" placeholder="test@test.ru" />
+        <span id="error_email" class="error-message"></span>
+      </div>
+      <div class="form__field">
+        <label>Password</label>
+        <input id="password" type="password" minlength="8" required class="input input-default"
+          placeholder="your password" />
+        <span id="error_password" class="error-message"></span>
+      </div>
+      <div class="form__field">
+        <label>Confirm password</label>
+        <input required id="repeatPassword" class="input input-default" placeholder="repeat you password" />
+        <span id="error_repeatPassword" class="error-message"></span>
+      </div>
+
+      <button id="registerButton" class="button button-submit form__register-button">register</button>
+      <span id="success-form" class="success-message">Form completed</span>
+    </form>
+  </div>
+  <template id="todolist-form-template" style="display: none;">
+    <form>
+      <input type="text" class="todolist-form_input" />
+      <button type="submit" class="todolist-form_submit">Сохранить</button>
+    </form>
+  </template>
+
+  <template id="todolist-template" style="display: none;">
+    <ul>
+
+    </ul>
+  </template>
+
+  <template id="todolist-item-template" style="display: none;">
+    <li>
+      <span class="todolist-item__title">
+
+      </span>
+      <div class="todolist-item__controls">
+        <button class="todolist-item__controls-copy">copy</button>
+        <button class="todolist-item__controls-delete">delete</button>
+      </div>
+    </li>
+  </template>
+  <section>
+    <h1>todo list</h1>
+
+    <div id="content" class="content" />
+  </section>
 </body>
 
 </html>
