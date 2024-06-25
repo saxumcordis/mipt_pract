@@ -5,17 +5,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="index.css">
-  <script defer src="index.js"></script>
-
 </head>
 
 <body>
-  <button class="create-elem">
-    +
-  </button>
-  <section class="gallery">
+  <template id="todolist-form-template" style="display: none;">
+    <form>
+      <input type="text" class="todolist-form_input" />
+      <button type="submit" class="todolist-form_submit">Сохранить</button>
+    </form>
+  </template>
 
+  <template id="todolist-template" style="display: none;">
+    <ul>
+
+    </ul>
+  </template>
+
+  <template id="todolist-item-template" style="display: none;">
+    <li>
+      <span class="todolist-item__title">
+
+      </span>
+      <div class="todolist-item__controls">
+        <button class="todolist-item__controls-copy">copy</button>
+        <button class="todolist-item__controls-delete">delete</button>
+      </div>
+    </li>
+  </template>
+  <section>
+    <h1>todo list</h1>
+
+    <div id="content" class="content" />
   </section>
 </body>
 
