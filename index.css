@@ -1,27 +1,91 @@
-.gallery {
-  display: flex;
+body {
+  background: rgb(231, 231, 231);
   height: 100vh;
-  width: 100vw;
-}
-
-.list {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
 }
 
-.list__item {
-  width: 200px;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title {
+  font-size: 27px;
+}
+
+.form-container {
+  box-shadow: 0 0 4px black;
+  padding: 32px;
+  border-radius: 4px;
+}
+
+.form {
+  width: 500px;
+}
+
+.form__field {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  margin-block-end: 20px;
+}
+
+.form__register-button {
+  margin: 0 auto;
+}
+
+.input {
+  height: 32px;
+  padding: 4px 12px;
+  border-radius: 4px;
   border: 1px solid black;
-
-  height: 300px;
 }
 
-.list__item_image {
-  width: 150px;
+.input:invalid {
+  /** работает только на дефолтные ошибки, не на кастомные */
+  border-color: red;
 }
 
-.create-elem {
-  width: 100vw;
+.input:valid {
+  border-color: greenyellow;
+}
+
+.button {
+  height: 32px;
+  cursor: pointer;
+}
+
+.button-submit {
+  width: 120px;
+  background-color: rgb(0, 195, 255);
+  border-radius: 4px;
+
+  &:hover {
+    background-color: rgb(56, 208, 255);
+  }
+}
+
+.error-message {
+  color: red;
+
+  display: none;
+}
+
+.error-message-visible {
+  display: inline;
+}
+
+.success-message {
+  color: green;
+  display: none;
+}
+
+.success-message-visible {
+  display: inline;
 }
