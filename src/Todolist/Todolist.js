@@ -1,26 +1,26 @@
 import { TodolistItem } from './TodolistItem';
 
 export class Todolist {
-  static template = document.querySelector('.todolist-template');
+  static _template = document.querySelector('#todolist-template').content;
 
-  constructor(items, parent) {
-    this.parent = parent;
-    this.items = items;
+  constructor(items, createTodoListItem, createTodoListForm) {
+    this._items = items;
+    this._createTodolistForm = createTodoListForm;
+    this._createTodolistItem = createTodoListItem;
 
-    this.view = Todolist.template.cloneNode();
+    this.view = Todolist._template.cloneNode(true).children[0];
   }
 
-  addItem = (text) => {
-    const itemView = new TodolistItem(text, this.view, this.addItem);
+  _addItem = (text) => {
+    const itemView = this._createTodolistItem(text, this._addItem);
 
-    itemView.render();
+    itemView.render(this.view);
   }
 
-  render() {
-    const todoListView = this.view;
+  render(container) {
+    this._createTodolistForm(this._addItem).render(this.view);
+    this._items.forEach(item => this._addItem(item))
 
-    this.items.forEach(item => this.addItem(item))
-
-    this.parent.append(todoListView);
+    container.append(this.view);
   }
 }
